@@ -74,7 +74,11 @@ def test_line_structure_survives(name, target):
             "SRT cannot store font size; dropped on 13 cues",
             "SRT cannot store region position; dropped on 13 cues",
         ]),
-        ("sample.de.vtt", "vtt", ["WebVTT cannot store region position; dropped on 13 cues"]),
+        ("sample.de.vtt", "vtt", [
+            "WebVTT cannot store font family; dropped on 13 cues",
+            "WebVTT cannot store font size; dropped on 13 cues",
+            "WebVTT cannot store region position; dropped on 13 cues",
+        ]),
         ("sample.en.vtt", "srt", [
             "SRT cannot store region position; dropped on 1 cue",
             "SRT cannot store speaker names; dropped on 4 cues",
@@ -86,6 +90,11 @@ def test_line_structure_survives(name, target):
 )
 def test_expected_warnings(name, target, expected):
     assert formats.get(target).write(load(name)).warnings == expected
+
+
+def test_language_carried_into_vtt():
+    vtt = formats.get("vtt")
+    assert vtt.read(vtt.write(load("sample.de.vtt")).text).language == "de"
 
 
 def test_language_carried_into_ttml():

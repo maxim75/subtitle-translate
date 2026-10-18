@@ -77,7 +77,7 @@ def test_conversion_warnings_go_to_stderr(workdir, capsys):
     code, _ = run([workdir / "sample.de.vtt", "-l", "en", "-f", "srt"])
     assert code == 0
     err = capsys.readouterr().err
-    assert "warning: SRT cannot store background colour; dropped on " in err  # exact counts: test_conversion
+    assert "warning: SRT cannot store background colour; dropped on 13 cues" in err
 
 
 def test_explicit_output_and_force(workdir, capsys):
