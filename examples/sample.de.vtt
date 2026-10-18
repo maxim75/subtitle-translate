@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Profile: EBU-TT-D-Basic-DE --><tt:tt xmlns:tt="http://www.w3.org/ns/ttml" xmlns:tts="http://www.w3.org/ns/ttml#styling"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:ttm="http://www.w3.org/ns/ttml#metadata"
+xmlns:ttp="http://www.w3.org/ns/ttml#parameter"
+xmlns:ebuttdt="urn:ebu:tt:datatypes"
+xmlns:ebuttm="urn:ebu:tt:metadata"
+xmlns:ebutts="urn:ebu:tt:style"
+xmlns:ebuttExt="urn:ebu:tt:extension"
+ttp:timeBase="media"
+ttp:cellResolution="50 30"
+xml:lang="de">
+<tt:head>
+<tt:metadata>
+<ebuttm:documentMetadata>
+<ebuttm:documentEbuttVersion>v1.0</ebuttm:documentEbuttVersion>
+</ebuttm:documentMetadata>
+</tt:metadata>
+<tt:styling>
+<tt:style xml:id="S1" tts:fontSize="160%" tts:fontFamily="Verdana, Arial, Tiresias"
+tts:lineHeight="125%"/>
+<tt:style xml:id="S2" tts:textAlign="center"/>
+<tt:style xml:id="S3" tts:color="#ffffff" tts:backgroundColor="#000000c2"/>
+<tt:style xml:id="S4" tts:color="#00ffff" tts:backgroundColor="#000000c2"/>
+<tt:style xml:id="S5" tts:color="#00ff00" tts:backgroundColor="#000000c2"/>
+</tt:styling>
+<tt:layout>
+<tt:region xml:id="R1" tts:origin="10% 10%" tts:extent="80% 80%" tts:displayAlign="after"/>
+</tt:layout>
+</tt:head>
+<tt:body>
+<tt:div style="S1">
+<tt:p xml:id="C1" region="R1" style="S2" begin="0:00:01.000" end="0:00:03.200">
+<tt:span style="S3">Personen und ihre Farben:</tt:span>
+</tt:p>
+<tt:p xml:id="C2" region="R1" style="S2" begin="0:00:03.400" end="0:00:06.000">
+<tt:span style="S4">Gelb für Anna Berger.</tt:span>
+</tt:p>
+<tt:p xml:id="C3" region="R1" style="S2" begin="0:00:06.000" end="0:00:08.600">
+<tt:span style="S5">Grün für Thomas Krüger.</tt:span>
+</tt:p>
+<tt:p xml:id="C4" region="R1" style="S2" begin="0:00:08.600" end="0:00:11.000">
+<tt:span style="S3">Weiß für alle anderen Personen.</tt:span>
+</tt:p>
+<tt:p xml:id="C5" region="R1" style="S2" begin="0:00:15.000" end="0:00:17.500">
+<tt:span style="S3">* Regen prasselt gegen das Fenster *</tt:span>
+</tt:p>
+<tt:p xml:id="C6" region="R1" style="S2" begin="0:00:18.200" end="0:00:21.800">
+<tt:span style="S4">Du bist spät dran.</tt:span>
+<tt:br/>
+<tt:span style="S4">Der Zug ist schon weg.</tt:span>
+</tt:p>
+<tt:p xml:id="C7" region="R1" style="S2" begin="0:00:22.000" end="0:00:25.400">
+<tt:span style="S5">Ich weiß. Die Straßenbahn</tt:span>
+<tt:br/>
+<tt:span style="S5">stand zwanzig Minuten im Stau.</tt:span>
+</tt:p>
+<tt:p xml:id="C8" region="R1" style="S2" begin="0:00:25.800" end="0:00:28.600">
+<tt:span style="S4">Und jetzt?</tt:span>
+<tt:span style="S5"> Wir nehmen den nächsten.</tt:span>
+</tt:p>
+<tt:p xml:id="C9" region="R1" style="S2" begin="0:00:29.000" end="0:00:32.400">
+<tt:span style="S3">Achtung an Gleis 4: Der ICE nach München</tt:span>
+<tt:br/>
+<tt:span style="S3">hat etwa 15 Minuten Verspätung.</tt:span>
+</tt:p>
+<tt:p xml:id="C10" region="R1" style="S2" begin="0:00:33.000" end="0:00:36.000">
+<tt:span style="S5">Na also. Dann reicht es</tt:span>
+<tt:br/>
+<tt:span style="S5">sogar noch für einen Kaffee.</tt:span>
+</tt:p>
+<tt:p xml:id="C11" region="R1" style="S2" begin="0:00:36.400" end="0:00:39.000">
+<tt:span style="S4">Aber diesmal zahlst du.</tt:span>
+</tt:p>
+<tt:p xml:id="C12" region="R1" style="S2" begin="0:00:40.000" end="0:00:42.500">
+<tt:span style="S3">* ruhige Musik *</tt:span>
+</tt:p>
+<tt:p xml:id="C13" region="R1" style="S2" begin="0:00:45.000" end="0:00:48.000">
+<tt:span style="S3">Untertitel: Beispieldatei</tt:span>
+<tt:br/>
+<tt:span style="S3">subtitle-translate</tt:span>
+</tt:p>
+</tt:div>
+</tt:body>
+</tt:tt>

@@ -1,0 +1,32 @@
+1
+00:00:01,000 --> 00:00:03,500
+Good morning! Did you sleep well?
+
+2
+00:00:04,000 --> 00:00:06,750
+Not really. The neighbours were
+playing music until 2 a.m.
+
+3
+00:00:07,200 --> 00:00:09,000
+<i>[door slams]</i>
+
+4
+00:00:09,500 --> 00:00:12,250
+- Is that them again?
+- I'm afraid so.
+
+5
+00:00:13,000 --> 00:00:16,400
+Let's grab a coffee and talk
+about something more pleasant.
+
+6
+00:00:17,000 --> 00:00:19,800
+How about that trip to Kyiv
+we've been planning?
+
+7
+00:01:02,100 --> 00:01:05,000
+Café, croissant, and a window seat —
+perfect.
