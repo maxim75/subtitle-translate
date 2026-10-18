@@ -10,13 +10,13 @@ Pure Python, no third-party runtime dependencies; works on Linux, macOS and Wind
 The recommended way is an isolated tool install, which puts `subtitle-translate` on your `PATH`:
 
 ```bash
-uv tool install git+https://github.com/<owner>/subtitle-translate
+uv tool install git+https://github.com/maxim75/subtitle-translate
 ```
 
 or with pipx:
 
 ```bash
-pipx install git+https://github.com/<owner>/subtitle-translate
+pipx install git+https://github.com/maxim75/subtitle-translate
 ```
 
 From a local checkout:
