@@ -25,3 +25,4 @@ __all__ = [
 ]
 
 # Built-in formats register themselves on import.
+from subtitle_translate.formats import srt  # noqa: E402,F401
