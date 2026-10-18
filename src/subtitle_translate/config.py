@@ -24,10 +24,11 @@ from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationError
 
+from subtitle_translate.wrap import DEFAULT_MAX_LINE_LENGTH
+
 APP_NAME = "subtitle-translate"
 DEFAULT_MODEL = "anthropic/claude-sonnet-5.5"
 DEFAULT_BASE_URL = "https://openrouter.ai/api/v1"
-DEFAULT_MAX_LINE_LENGTH = 42
 
 #: Setting name -> environment variable.
 ENV_VARS = {

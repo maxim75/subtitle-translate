@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from collections import Counter
 from dataclasses import dataclass, field
 
 from subtitle_translate.model import Style, SubtitleDocument
@@ -24,15 +23,16 @@ class DroppedFeatures:
 
     def __init__(self, format_label: str) -> None:
         self._label = format_label
-        self._counts: Counter[str] = Counter()
+        self._cues: dict[str, set[int]] = {}
 
-    def add(self, feature: str) -> None:
-        self._counts[feature] += 1
+    def add(self, feature: str, cue: object) -> None:
+        """Record that ``feature`` was dropped on ``cue`` (each cue counts once)."""
+        self._cues.setdefault(feature, set()).add(id(cue))
 
     def warnings(self) -> list[str]:
         return [
             f"{self._label} cannot store {feature}; dropped on {n} cue{'s' if n != 1 else ''}"
-            for feature, n in sorted(self._counts.items())
+            for feature, n in sorted((f, len(c)) for f, c in self._cues.items())
         ]
 
 

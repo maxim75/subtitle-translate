@@ -67,9 +67,11 @@ def test_detect_unknown(fake_formats):
 
 def test_dropped_features_one_warning_per_kind():
     dropped = DroppedFeatures("SRT")
-    for _ in range(37):
-        dropped.add("background colour")
-    dropped.add("region")
+    cues = [object() for _ in range(37)]
+    for cue in cues:
+        dropped.add("background colour", cue)
+        dropped.add("background colour", cue)  # same cue twice counts once
+    dropped.add("region", cues[0])
     assert dropped.warnings() == [
         "SRT cannot store background colour; dropped on 37 cues",
         "SRT cannot store region; dropped on 1 cue",
