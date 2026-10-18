@@ -292,9 +292,15 @@ class WebVttFormat(SubtitleFormat):
                                     for k, v in own.get("chains", {}).items()}
         generated: dict[str, Style] = {}  # class name -> style, for a new STYLE block
 
-        header = list(own.get("header", ["WEBVTT"]))
-        if doc.language:
-            header = [f"Language: {doc.language}" if _LANGUAGE_HEADER.match(h) else h for h in header]
+        if own:
+            header = list(own.get("header", ["WEBVTT"]))
+            if doc.language:
+                header = [f"Language: {doc.language}" if _LANGUAGE_HEADER.match(h) else h
+                          for h in header]
+        else:
+            header = ["WEBVTT"]
+            if doc.language and doc.language != "und":
+                header.append(f"Language: {doc.language}")
         out = ["\n".join(header)]
         out.extend(own.get("prelude", []))
 
@@ -378,8 +384,16 @@ class WebVttFormat(SubtitleFormat):
     def _chain_for(doc: SubtitleDocument, cue: Cue, seg: Segment, generated: dict[str, Style],
                    dropped: DroppedFeatures) -> Chain:
         style = doc.resolve_style(cue, seg)
-        css = Style(color=style.color, background_color=style.background_color,
-                    font_family=style.font_family, font_size=style.font_size)
+        css = Style(color=style.color, background_color=style.background_color)
+        if doc.source_format == "vtt":
+            css = css.merged(Style(font_family=style.font_family, font_size=style.font_size))
+        else:
+            # Other formats' font values are not CSS: TTML sizes are relative to the
+            # cell grid (EBU-TT-D "160%") and families may be generic TTML names.
+            if style.font_family:
+                dropped.add("font family", cue)
+            if style.font_size:
+                dropped.add("font size", cue)
         chain: list[tuple[str, tuple[str, ...]]] = []
         if not css.is_empty():
             name = next((n for n, s in generated.items() if s == css), None)

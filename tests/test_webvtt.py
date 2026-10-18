@@ -135,7 +135,7 @@ def test_write_from_foreign_document_generates_style_block():
     )
     result = vtt.write(doc)
     assert result.text == (
-        "WEBVTT\n\n"
+        "WEBVTT\nLanguage: de\n\n"
         "STYLE\n"
         "::cue(.s1) { color: #ffffff; background-color: #000000c2; }\n"
         "::cue(.cyan) { color: #00ffff; }\n\n"
@@ -151,3 +151,26 @@ def test_named_entities_are_decoded_and_markup_chars_escaped():
     doc = vtt.read("WEBVTT\n\n00:00.000 --> 00:01.000\nA&nbsp;&ndash;&lrm;B &amp; &lt;i&gt;\n")
     assert doc.cues[0].text == "A –‎B & <i>"
     assert vtt.write(doc).text.endswith("A –‎B &amp; &lt;i&gt;\n")
+
+
+def test_foreign_font_values_are_dropped_not_copied_into_css():
+    doc = SubtitleDocument(
+        source_format="ttml",
+        styles={"S1": Style(color="#ffff00", font_family="proportionalSansSerif", font_size="160%")},
+        cues=[Cue(start_ms=0, end_ms=1000, lines=[Line(segments=[Segment(text="Hi", style_id="S1")])])],
+    )
+    result = vtt.write(doc)
+    assert "font" not in result.text
+    assert "::cue(.yellow) { color: #ffff00; }" in result.text
+    assert result.warnings == [
+        "WebVTT cannot store font family; dropped on 1 cue",
+        "WebVTT cannot store font size; dropped on 1 cue",
+    ]
+
+
+@pytest.mark.parametrize(("language", "header"), [("en", "WEBVTT\nLanguage: en\n\n"),
+                                                  (None, "WEBVTT\n\n"), ("und", "WEBVTT\n\n")])
+def test_language_header_for_foreign_document(language, header):
+    doc = SubtitleDocument(source_format="srt", language=language,
+                           cues=[Cue(start_ms=0, end_ms=1000, lines=[Line(segments=[Segment(text="Hi")])])])
+    assert vtt.write(doc).text.startswith(header)
