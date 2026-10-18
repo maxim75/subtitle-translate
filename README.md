@@ -1,7 +1,7 @@
 # subtitle-translate
 
 Cross-platform command line utility for translating subtitle files.
-Pure Python, no third-party runtime dependencies; works on Linux, macOS and Windows (Python 3.9+).
+Pure Python; works on Linux, macOS and Windows (Python 3.11+).
 
 > Status: first iteration — the tool reads a subtitle file and reports its name and size.
 

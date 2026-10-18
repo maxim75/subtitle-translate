@@ -7,9 +7,12 @@ name = "subtitle-translate"
 version = "0.1.0"
 description = "Command line utility for translating subtitle files"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 authors = [{ name = "Maksym Kozlenko" }]
-dependencies = []
+dependencies = [
+    "openai>=1.40,<4",
+    "pydantic>=2.6,<3",
+]
 classifiers = [
     "Environment :: Console",
     "Operating System :: OS Independent",
@@ -28,3 +31,5 @@ packages = ["src/subtitle_translate"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = ["live: calls the real OpenRouter API (needs OPENROUTER_API_KEY)"]
+addopts = "-m 'not live'"
