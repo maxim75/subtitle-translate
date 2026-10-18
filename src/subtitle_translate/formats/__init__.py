@@ -28,4 +28,5 @@ __all__ = [
 
 # Built-in formats register themselves on import.
 from subtitle_translate.formats import srt  # noqa: E402,F401
+from subtitle_translate.formats import ttml  # noqa: E402,F401
 from subtitle_translate.formats import webvtt  # noqa: E402,F401
