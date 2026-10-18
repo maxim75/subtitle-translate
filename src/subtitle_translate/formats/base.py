@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from collections import Counter
 from dataclasses import dataclass, field
 
-from subtitle_translate.model import SubtitleDocument
+from subtitle_translate.model import Style, SubtitleDocument
 
 
 class FormatError(Exception):
@@ -34,6 +34,27 @@ class DroppedFeatures:
             f"{self._label} cannot store {feature}; dropped on {n} cue{'s' if n != 1 else ''}"
             for feature, n in sorted(self._counts.items())
         ]
+
+
+class StyleTable:
+    """Builds ``SubtitleDocument.styles`` while reading, deduplicating styles.
+
+    Ids are ``s1``, ``s2``, ... unless a reader passes its own ``key`` (e.g. the
+    original markup) to keep visually equal but differently written styles apart.
+    """
+
+    def __init__(self) -> None:
+        self.styles: dict[str, Style] = {}
+        self._ids: dict[str, str] = {}
+
+    def id_for(self, style: Style, key: str | None = None) -> str | None:
+        if style.is_empty() and key is None:
+            return None
+        key = key if key is not None else style.model_dump_json()
+        if key not in self._ids:
+            self._ids[key] = f"s{len(self._ids) + 1}"
+            self.styles[self._ids[key]] = style
+        return self._ids[key]
 
 
 class SubtitleFormat(ABC):
