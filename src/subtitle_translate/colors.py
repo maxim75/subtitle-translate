@@ -9,7 +9,8 @@ from __future__ import annotations
 import re
 
 # CSS / HTML basic colour keywords plus a few common extras. SRT and WebVTT
-# files in the wild mostly use these.
+# files in the wild mostly use these. Where two names share a value the
+# WebVTT default class name comes first, so color_name() prefers it.
 NAMED_COLORS: dict[str, str] = {
     "black": "#000000",
     "silver": "#c0c0c0",
@@ -19,8 +20,8 @@ NAMED_COLORS: dict[str, str] = {
     "maroon": "#800000",
     "red": "#ff0000",
     "purple": "#800080",
-    "fuchsia": "#ff00ff",
     "magenta": "#ff00ff",
+    "fuchsia": "#ff00ff",
     "green": "#008000",
     "lime": "#00ff00",
     "olive": "#808000",
@@ -28,8 +29,8 @@ NAMED_COLORS: dict[str, str] = {
     "navy": "#000080",
     "blue": "#0000ff",
     "teal": "#008080",
-    "aqua": "#00ffff",
     "cyan": "#00ffff",
+    "aqua": "#00ffff",
     "orange": "#ffa500",
 }
 

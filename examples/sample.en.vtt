@@ -1,0 +1,42 @@
+WEBVTT - Sample subtitles for subtitle-translate
+Kind: captions
+Language: en
+
+STYLE
+::cue(.anna) { color: #ffff00; }
+::cue(.tom) { color: #00ff00; }
+::cue(.sound) { color: #ffffff; font-style: italic; }
+
+REGION
+id:top
+width:80%
+lines:2
+regionanchor:0%,0%
+viewportanchor:10%,10%
+
+NOTE Colours: yellow for Anna, green for Tom, white for everyone else.
+
+intro
+00:00:01.000 --> 00:00:03.200
+<c.sound>[rain against the window]</c>
+
+00:00:03.500 --> 00:00:06.800 align:center line:90%
+<v.anna Anna>You're late.
+The train has already left.
+
+00:00:07.000 --> 00:00:10.400
+<v.tom Tom>I know. The tram was stuck
+in traffic for twenty minutes.
+
+NOTE Two speakers in one cue.
+
+00:00:10.800 --> 00:00:13.600
+<v.anna Anna>So what now?</v> <v.tom Tom>We take the next one.
+
+announcement
+00:00:14.000 --> 00:00:17.400 region:top
+Attention, platform 4: the train to Munich
+is running about <b>15 minutes</b> late.
+
+00:00:18.000 --> 00:00:21.000 line:0 align:left
+<v.anna Anna>Fine &amp; dandy &lt;3 – but <i>this time</i> you pay.

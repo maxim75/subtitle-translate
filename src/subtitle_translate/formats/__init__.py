@@ -7,6 +7,7 @@ decorated with ``@register`` and import it at the bottom of this file.
 from subtitle_translate.formats.base import (
     DroppedFeatures,
     FormatError,
+    StyleTable,
     SubtitleFormat,
     WriteResult,
 )
@@ -15,6 +16,7 @@ from subtitle_translate.formats.registry import available, detect, get, register
 __all__ = [
     "DroppedFeatures",
     "FormatError",
+    "StyleTable",
     "SubtitleFormat",
     "WriteResult",
     "available",
@@ -25,4 +27,6 @@ __all__ = [
 ]
 
 # Built-in formats register themselves on import.
+from subtitle_translate.formats import srt  # noqa: E402,F401
 from subtitle_translate.formats import ttml  # noqa: E402,F401
+from subtitle_translate.formats import webvtt  # noqa: E402,F401
