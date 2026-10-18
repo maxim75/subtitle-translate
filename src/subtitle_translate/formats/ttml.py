@@ -243,7 +243,7 @@ class TtmlFormat(SubtitleFormat):
         dropped = DroppedFeatures("EBU-TT-D")
         for cue in doc.cues:
             if any(s.voice for s in cue.segments()):
-                dropped.add("speaker names")
+                dropped.add("speaker names", cue)
         source = doc.extensions.get("ttml", {}).get("source") if doc.source_format == self.name else None
         text = self._patch_source(doc, source) if source else None
         if text is None:

@@ -327,7 +327,7 @@ class WebVttFormat(SubtitleFormat):
             elif region.display_align == "center":
                 parts.append("line:50%,center")
             if region.origin or region.extent:
-                dropped.add("region position")
+                dropped.add("region position", cue)
         align = doc.resolve_style(cue).text_align
         if align and align != "center":
             parts.append(f"align:{align}")

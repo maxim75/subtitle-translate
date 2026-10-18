@@ -9,7 +9,13 @@ from __future__ import annotations
 import re
 
 from subtitle_translate.colors import normalize_color
-from subtitle_translate.formats.base import DroppedFeatures, FormatError, SubtitleFormat, WriteResult
+from subtitle_translate.formats.base import (
+    DroppedFeatures,
+    FormatError,
+    StyleTable,
+    SubtitleFormat,
+    WriteResult,
+)
 from subtitle_translate.formats.registry import register
 from subtitle_translate.model import Cue, Line, Region, Segment, Style, SubtitleDocument
 
@@ -41,24 +47,7 @@ def _timestamp(ms: int) -> str:
     return f"{h:02d}:{m:02d}:{s:02d},{rest:03d}"
 
 
-class _StyleTable:
-    """Deduplicates styles and hands out stable ids (s1, s2, ...)."""
-
-    def __init__(self) -> None:
-        self.styles: dict[str, Style] = {}
-        self._ids: dict[str, str] = {}
-
-    def id_for(self, style: Style) -> str | None:
-        if style.is_empty():
-            return None
-        key = style.model_dump_json()
-        if key not in self._ids:
-            self._ids[key] = f"s{len(self._ids) + 1}"
-            self.styles[self._ids[key]] = style
-        return self._ids[key]
-
-
-def _parse_text(lines: list[str], table: _StyleTable) -> list[Line]:
+def _parse_text(lines: list[str], table: StyleTable) -> list[Line]:
     # Stack of (tag, Style) so closing tags restore the previous state, even across lines.
     stack: list[tuple[str, Style]] = []
     result: list[Line] = []
@@ -110,7 +99,7 @@ class SrtFormat(SubtitleFormat):
 
     def read(self, text: str) -> SubtitleDocument:
         text = text.lstrip("﻿").replace("\r\n", "\n").replace("\r", "\n")
-        table = _StyleTable()
+        table = StyleTable()
         regions: dict[str, Region] = {}
         cues: list[Cue] = []
         pending: list[tuple[Cue, list[str]]] = []
@@ -163,7 +152,7 @@ class SrtFormat(SubtitleFormat):
             lines = [self._render_line(doc, cue, line, dropped) for line in cue.lines]
             lines = [ln for ln in lines if ln.strip()]
             if not lines:
-                dropped.add("empty cues")
+                dropped.add("empty cues", cue)
                 continue
             an = self._an_tag(doc, cue, dropped)
             if an:
@@ -183,7 +172,7 @@ class SrtFormat(SubtitleFormat):
         align = doc.resolve_style(cue).text_align
         vertical = region.display_align if region and region.display_align else "after"
         if region and (region.origin or region.extent):
-            dropped.add("region position")
+            dropped.add("region position", cue)
         row = {"after": 0, "center": 3, "before": 6}[vertical]
         col = {"left": 1, "start": 1, "right": 3, "end": 3}.get(align or "", 2)
         n = row + col
@@ -199,18 +188,18 @@ class SrtFormat(SubtitleFormat):
                 opening.append(f'<font color="{style.color[:7]}">')
                 closing.append("</font>")
             if style.color and len(style.color) == 9:
-                dropped.add("colour transparency")
+                dropped.add("colour transparency", cue)
             for flag, tag in (("bold", "b"), ("italic", "i"), ("underline", "u")):
                 if getattr(style, flag):
                     opening.append(f"<{tag}>")
                     closing.append(f"</{tag}>")
             if style.background_color:
-                dropped.add("background colour")
+                dropped.add("background colour", cue)
             if style.font_family:
-                dropped.add("font family")
+                dropped.add("font family", cue)
             if style.font_size:
-                dropped.add("font size")
+                dropped.add("font size", cue)
             if seg.voice:
-                dropped.add("speaker names")
+                dropped.add("speaker names", cue)
             out.append("".join(opening) + seg.text + "".join(reversed(closing)))
         return "".join(out)
